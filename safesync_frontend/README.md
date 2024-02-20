@@ -1,16 +1,10 @@
 # safesync_frontend
 
-A new Flutter project.
+A new Flutter project for our world, 'SafeSync'.
 
 ## Getting Started
+1. Flutter SDK를 설치하세요. 자세한 내용은 [Flutter 공식 사이트](https://flutter.dev/docs/get-started/install)를 참조하세요.
+2. 프로젝트 루트 디렉토리에서 다음 명령을 실행하여 필요한 패키지를 설치하세요:
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## How To Run
+flutter run
