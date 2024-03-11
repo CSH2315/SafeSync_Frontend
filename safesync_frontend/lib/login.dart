@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import 'signup.dart';
 
 void main() {
   runApp(LoginApp());
@@ -23,10 +26,26 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   // 아이디, 비밀번호 정보
-  TextEditingController _phoneNumberController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   // keep logged in 여부
   bool _keepLoggedIn = false;
+
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+
+  Future<void> _login() async {
+    try {
+      UserCredential userCredential = await _firebaseAuth.signInWithEmailAndPassword(
+        email: _emailController.text,
+        password: _passwordController.text,
+      );
+      // 로그인 성공 시 처리
+      print("User logged in: ${userCredential.user!.uid}");
+    } catch (e) {
+      // 로그인 실패 시 처리
+      print("Failed to log in: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,14 +56,14 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              // 휴대전화 번호 입력 텍스트필드
+              // 이메일 입력 텍스트필드
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: SizedBox(
                   width: 300,
                   child: CupertinoTextField(
-                    controller: _phoneNumberController,
-                    placeholder: 'Phone Number',
+                    controller: _emailController,
+                    placeholder: 'Email',
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -89,7 +108,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: SizedBox(
                   width: 250,
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: _login,
                     child: Text('Continue'),
                     style: ButtonStyle(
                       backgroundColor:
@@ -103,6 +122,10 @@ class _LoginPageState extends State<LoginPage> {
               GestureDetector(
                 onTap: () {
                   // TODO: 회원가입 페이지로 이동하는 로직 추가
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SignUpPage()),
+                  );
                 },
                 child: Text(
                   "You don't have an account? Sign in",

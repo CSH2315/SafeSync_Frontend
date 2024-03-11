@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyCb4ANO9CKcQ66oWmVA78cjXGlYr1i9hiE</string>
+	<key>GCM_SENDER_ID</key>
+	<string>656609587905</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.safesyncFrontend</string>
+	<key>PROJECT_ID</key>
+	<string>com-ex-safesync</string>
+	<key>STORAGE_BUCKET</key>
+	<string>com-ex-safesync.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:656609587905:ios:d4b2702e45bffb8d199a40</string>
+</dict>
+</plist>
