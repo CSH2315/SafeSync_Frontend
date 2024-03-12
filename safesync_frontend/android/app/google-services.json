@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "656609587905",
+    "project_id": "com-ex-safesync",
+    "storage_bucket": "com-ex-safesync.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:656609587905:android:d41f1815e907964f199a40",
+        "android_client_info": {
+          "package_name": "com.example.safesync_frontend"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEQ3ezso22O3oNGL9SL86vOlt3Jhg3wHs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
