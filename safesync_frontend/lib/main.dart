@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:safesync_frontend/providers/report/report_provider.dart';
+import 'package:safesync_frontend/providers/report/report_state.dart';
+import 'package:safesync_frontend/repositories/report_repository.dart';
 
 // Screens
 import 'package:safesync_frontend/screens/test_screen.dart';
@@ -7,6 +10,11 @@ import 'package:safesync_frontend/screens/test_screen.dart';
 import 'package:safesync_frontend/repositories/feed_repository.dart';
 import 'package:safesync_frontend/providers/feed/feed_provider.dart';
 import 'package:safesync_frontend/providers/feed/feed_state.dart';
+
+// Report Repository, Provider and State
+import 'package:safesync_frontend/repositories/report_repository.dart';
+import 'package:safesync_frontend/providers/report/report_provider.dart';
+import 'package:safesync_frontend/providers/report/report_state.dart';
 
 // Provider and State Notifier
 import 'package:flutter_state_notifier/flutter_state_notifier.dart';
@@ -37,6 +45,14 @@ class MyApp extends StatelessWidget {
         StateNotifierProvider<FeedProvider, FeedState>(
           create: (context) => FeedProvider(),
         ),
+        Provider(
+            create: (context) => ReportRepository(
+                firebaseFirestore: FirebaseFirestore.instance
+            )
+        ),
+        StateNotifierProvider<ReportProvider, ReportState>(
+          create: (context) => ReportProvider()
+        )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
