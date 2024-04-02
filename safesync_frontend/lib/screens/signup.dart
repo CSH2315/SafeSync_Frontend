@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -11,6 +10,9 @@ class _SignUpPageState extends State<SignUpPage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
+  final TextEditingController _verificationCodeController = TextEditingController();
+  String _verificationId = '';
 
   Future<void> _register() async {
     try {
@@ -18,11 +20,52 @@ class _SignUpPageState extends State<SignUpPage> {
         email: _emailController.text,
         password: _passwordController.text,
       );
+
       // 회원가입 성공 시 처리
       print("User registered: ${userCredential.user!.uid}");
+
+      // 인증번호 확인
+      _certify();
     } catch (e) {
       // 회원가입 실패 시 처리
       print("Failed to register: $e");
+    }
+  }
+
+  void _startPhoneVerification() async {
+    try {
+      await _auth.verifyPhoneNumber(
+        phoneNumber: _phoneNumberController.text,
+        verificationCompleted: (PhoneAuthCredential credential) async {
+          print('인증 문자 수신');
+        },
+        verificationFailed: (FirebaseAuthException e) {
+          print(e)
+          print('인증 문자 전송 실패');
+        },
+        codeSent: (String verificationId, int? resendToken) async {
+          print('인증 문자 전송');
+          setState(() {
+            _verificationId = verificationId; // 인증 코드 확인때 필요한 값
+          });
+        },
+        codeAutoRetrievalTimeout: (String verificationId){},
+      );
+    } catch (e) {
+      print("Failed to start phone verification: $e");
+    }
+  }
+
+  Future<void> _certify() async {
+    try {
+      PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: _verificationId, smsCode: _verificationCodeController.text);
+      final UserCredential authCredential = await _auth.signInWithCredential(credential);
+
+      // 인증 성공 시 처리
+      print("Phone number verified: ${authCredential.user!.phoneNumber}");
+    } catch (e) {
+      // 인증 실패 시 처리
+      print("Failed to verify phone number: $e");
     }
   }
 
@@ -47,10 +90,25 @@ class _SignUpPageState extends State<SignUpPage> {
               decoration: InputDecoration(labelText: 'Password'),
               obscureText: true,
             ),
+            SizedBox(height: 8.0),
+            TextField(
+              controller: _phoneNumberController,
+              decoration: InputDecoration(labelText: 'Phone Number'),
+            ),
+            SizedBox(height: 8.0),
+            TextField(
+              controller: _verificationCodeController,
+              decoration: InputDecoration(labelText: 'Verification Code'),
+            ),
             SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: _register,
               child: Text('Register'),
+            ),
+            SizedBox(height: 8.0),
+            ElevatedButton(
+              onPressed: _startPhoneVerification,
+              child: Text('인증번호 보내기'),
             ),
           ],
         ),
