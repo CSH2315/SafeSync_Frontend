@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:safesync_frontend/providers/feed/feed_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:safesync_frontend/providers/feed/feed_state.dart';
 
 class FeedScreen extends StatefulWidget {
   const FeedScreen({super.key});

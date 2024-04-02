@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:safesync_frontend/providers/locations.dart' as locations;
 
+import 'package:location/location.dart';
+
 class MapScreen extends StatefulWidget {
   const MapScreen({Key? key}) : super(key: key);
 
@@ -10,40 +12,36 @@ class MapScreen extends StatefulWidget {
 }
 
 class _MapScreenState extends State<MapScreen> {
-  final Map<String, Marker> _markers = {};
-  Future<void> _onMapCreated(GoogleMapController controller) async {
-    final googleOffices = await locations.getGoogleOffices();
-    setState(() {
-      _markers.clear();
-      for (final office in googleOffices.offices) {
-        final marker = Marker(
-          markerId: MarkerId(office.name),
-          position: LatLng(office.lat, office.lng),
-          infoWindow: InfoWindow(
-            title: office.name,
-            snippet: office.address,
-          ),
-        );
-        _markers[office.name] = marker;
-      }
-    });
+  late GoogleMapController _controller;
+
+  final CameraPosition _position = CameraPosition(target: LatLng(41.017901, 28.847953));
+
+  final List<Marker> markers = [];
+
+  void _onMapCreated(GoogleMapController controller) {
+    _controller = controller;
+  }
+
+  void _currentLocation() async {
+    final GoogleMapController controller = await _controller;
+    Location location = Location();
+    final currentLocation = await location.getLocation();
+
+    controller.animateCamera(CameraUpdate.newCameraPosition(
+      CameraPosition(
+          target: LatLng(currentLocation.latitude!, currentLocation.longitude!),
+        zoom: 18.0,
+      )
+    ));
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Google Office Locations'),
-          backgroundColor: Colors.green[700],
-        ),
         body: GoogleMap(
           onMapCreated: _onMapCreated,
-          initialCameraPosition: const CameraPosition(
-            target: LatLng(0, 0),
-            zoom: 2,
-          ),
-          markers: _markers.values.toSet(),
+          initialCameraPosition: _position,
         ),
       ),
     );

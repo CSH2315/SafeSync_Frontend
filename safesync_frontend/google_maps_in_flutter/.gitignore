@@ -41,23 +41,3 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-
-## Custom
-# Google API key and other resources
-GoogleService-Info.plist
-google-services.json
-firebase_app_id_file.json
-firebase_*
-assets/config/.env
-
-# Google Map API Key
-web/index.html
-**/Runner/AppDelegate.swift
-**/android/app/src/main/AndroidManifest.xml
-
-# not use platform
-windows/
-macos/
-
-# Plugins (already resolved through pubspec.yaml)
-.flutter-plugins
