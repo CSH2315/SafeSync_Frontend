@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:safesync_frontend/screens/login.dart';
 import 'package:safesync_frontend/screens/feed_screen.dart';
+import 'package:safesync_frontend/screens/map_screen.dart';
 
 class TestScreen extends StatefulWidget {
   const TestScreen({super.key});
@@ -51,6 +52,16 @@ class _TestScreenState extends State<TestScreen> {
                       );
                     },
                     child: Text('Feed')
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => MapScreen())
+                      );
+                    },
+                    child: Text('Map')
                 ),
                 Spacer(flex: 1),
               ]

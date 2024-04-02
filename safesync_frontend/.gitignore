@@ -48,6 +48,12 @@ GoogleService-Info.plist
 google-services.json
 firebase_app_id_file.json
 firebase_*
+assets/config/.env
+
+# Google Map API Key
+web/index.html
+**/Runner/AppDelegate.swift
+**/android/app/src/main/AndroidManifest.xml
 
 # not use platform
 windows/
