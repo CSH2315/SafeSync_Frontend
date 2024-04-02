@@ -40,7 +40,7 @@ class _SignUpPageState extends State<SignUpPage> {
           print('인증 문자 수신');
         },
         verificationFailed: (FirebaseAuthException e) {
-          print(e)
+          print(e);
           print('인증 문자 전송 실패');
         },
         codeSent: (String verificationId, int? resendToken) async {
@@ -82,28 +82,28 @@ class _SignUpPageState extends State<SignUpPage> {
           children: [
             TextField(
               controller: _emailController,
-              decoration: InputDecoration(labelText: 'Email'),
+              decoration: InputDecoration(labelText: '이메일'),
             ),
             SizedBox(height: 8.0),
             TextField(
               controller: _passwordController,
-              decoration: InputDecoration(labelText: 'Password'),
+              decoration: InputDecoration(labelText: '비밀번호'),
               obscureText: true,
             ),
             SizedBox(height: 8.0),
             TextField(
               controller: _phoneNumberController,
-              decoration: InputDecoration(labelText: 'Phone Number'),
+              decoration: InputDecoration(labelText: '휴대폰 번호'),
             ),
             SizedBox(height: 8.0),
             TextField(
               controller: _verificationCodeController,
-              decoration: InputDecoration(labelText: 'Verification Code'),
+              decoration: InputDecoration(labelText: '인증 번호'),
             ),
             SizedBox(height: 16.0),
             ElevatedButton(
               onPressed: _register,
-              child: Text('Register'),
+              child: Text('회원가입'),
             ),
             SizedBox(height: 8.0),
             ElevatedButton(

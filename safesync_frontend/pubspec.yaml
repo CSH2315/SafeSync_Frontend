@@ -31,9 +31,13 @@ dependencies:
   flutter:
     sdk: flutter
 
-  location: ^4.2.0
   cupertino_icons: ^1.0.6
+
+  # google map
   google_maps_flutter: ^2.2.8
+  geolocator: ^7.0.0
+  permission_handler: ^9.2.0
+  location: ^4.2.0
   cloud_firestore: ^4.14.0
   firebase_core: ^2.27.0
   firebase_auth: ^4.17.8
