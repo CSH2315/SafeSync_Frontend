@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:safesync_frontend/providers/feed/feed_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:safesync_frontend/providers/report/report_provider.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:uuid/uuid.dart';
 
 class FeedScreen extends StatefulWidget {
   const FeedScreen({super.key});
@@ -11,6 +14,7 @@ class FeedScreen extends StatefulWidget {
 
 class _FeedScreenState extends State<FeedScreen> {
   late final FeedProvider _feedProvider;
+  late final ReportProvider _reportProvider;
   final _titleController = TextEditingController();
   final _contentController = TextEditingController();
   final _uidController = TextEditingController();
@@ -21,6 +25,7 @@ class _FeedScreenState extends State<FeedScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _feedProvider = context.read<FeedProvider>();
       _feedProvider.loadFeed();
+      _reportProvider = context.read<ReportProvider>();
     });
   }
 
@@ -46,9 +51,26 @@ class _FeedScreenState extends State<FeedScreen> {
     setState(() {});
   }
 
+  void reportTest(
+      String reportedUserUID,
+      String reportedFeedUID
+      ) async {
+    await _reportProvider.reportUser(
+      reporter_user_uid: _uidController.text,
+      reported_user_uid: reportedUserUID,
+      reason: 'Test Report',
+    );
+
+    await _reportProvider.reportFeed(
+      reporter_user_uid: _uidController.text,
+      reported_feed_uid: reportedFeedUID,
+      reason: 'Test Report',
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    _uidController.text = 'Test_UID_1';
+    _uidController.text = Uuid().v4();
     return Scaffold(
       appBar: AppBar(
         title: Text('Feed'),
@@ -82,6 +104,18 @@ class _FeedScreenState extends State<FeedScreen> {
                             feedProvider.likeFeed(
                               feed_id: feed.feed_uid,
                               user_uid: _uidController.text,
+                            );
+                          },
+                          onLongPress: () {
+                            reportTest(feed.user_uid, feed.feed_uid);
+                            Fluttertoast.showToast(
+                                msg: "Success",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.green,
+                                textColor: Colors.white,
+                                fontSize: 16.0
                             );
                           },
                           child: Card(
